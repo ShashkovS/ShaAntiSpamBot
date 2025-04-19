@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ShaAntiSpamBot"
+version = "0.0.1"
+description = "ShaAntiSpamBot"
+readme = "README.md"
+authors = [
+    { name = "Sergey Shashkov", email = "sh57@yandex.ru" }
+]
+license = { text = "MIT" }
+requires-python = ">=3.12"
+
+dependencies = [
+    "uvloop; sys_platform != 'win32'",
+    "gunicorn",
+    "aiogram",
+    "aiohttp",
+    "python-dotenv",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/ShashkovS/ShaAntiSpamBot"
