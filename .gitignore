@@ -1,4 +1,4 @@
 .venv
 .idea
 /config/secrets.json
-/ShaAntiSpamBot.egg-info/
+**/*.egg-info/

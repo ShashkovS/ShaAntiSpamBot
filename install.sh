@@ -52,7 +52,7 @@ sudo setfacl -R -m group:shaantispambot:rwx /web/shaantispambot
 
 # Клонируем репу
 cd /web/shaantispambot
-sudo -H -u shaantispambot git clone git@github.com:ShashkovS/shaantispambot.git shaantispambot
+sudo -H -u shaantispambot git clone https://github.com/ShashkovS/ShaAntiSpamBot.git shaantispambot
 cd /web/shaantispambot/shaantispambot
 sudo -H -u shaantispambot git checkout main
 sudo -H -u shaantispambot git pull
@@ -93,7 +93,7 @@ RestartSec=0
 User=shaantispambot
 Group=nginx
 RuntimeDirectory=gunicorn
-WorkingDirectory=/web/shaantispambot/shaantispambot
+WorkingDirectory=/web/shaantispambot/shaantispambot/src/shaantispambot
 Environment="PATH=/web/shaantispambot/shaantispambot_env/bin"
 ExecStart=/web/shaantispambot/shaantispambot_env/bin/gunicorn  --pid /web/shaantispambot/shaantispambot.pid  --workers 1  --bind unix:/web/shaantispambot/shaantispambot.socket --worker-class aiohttp.GunicornUVLoopWebWorker -m 007  main:app
 ExecReload=/bin/kill -s HUP $MAINPID
