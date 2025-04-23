@@ -14,7 +14,6 @@ async def on_startup(app):
     logger.info('Routes:')
     for route in app.router.routes():
         logger.info(f'{route.method}: {route.resource.canonical}')
-    post_logging_message_in_task('Веб-приложение тоже стартовало.')
 
 
 async def on_shutdown(app):
