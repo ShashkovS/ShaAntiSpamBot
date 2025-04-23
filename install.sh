@@ -69,8 +69,8 @@ deactivate
 
 
 # секреты
-mkdir /web/shaantispambot/shaantispambot/config
-sudo nano /web/shaantispambot/shaantispambot/config/secrets.json
+mkdir /web/shaantispambot/shaantispambot/src/shaantispambot/config
+sudo nano /web/shaantispambot/shaantispambot/src/shaantispambot/config/secrets.json
 {
 ...
 }
@@ -91,7 +91,7 @@ PIDFile=/web/shaantispambot/shaantispambot.pid
 Restart=always
 RestartSec=0
 User=shaantispambot
-Group=nginx
+Group=shaantispambot
 RuntimeDirectory=gunicorn
 WorkingDirectory=/web/shaantispambot/shaantispambot/src/shaantispambot
 Environment="PATH=/web/shaantispambot/shaantispambot_env/bin"
@@ -107,20 +107,18 @@ EOF
 sudo ln -s /web/shaantispambot/gunicorn.shaantispambot.service /etc/systemd/system/gunicorn.shaantispambot.service
 
 # Тестовый запуск
-cd /web/shaantispambot/shaantispambot && export PROD=true && sudo -H -u shaantispambot /web/shaantispambot/shaantispambot_env/bin/gunicorn  --pid /web/shaantispambot/shaantispambot.pid  --workers 1  --bind unix:/web/shaantispambot/shaantispambot.socket --worker-class aiohttp.GunicornUVLoopWebWorker -m 007  main:app
+cd /web/shaantispambot/shaantispambot/src/shaantispambot && export PROD=true && sudo -H -u shaantispambot /web/shaantispambot/shaantispambot_env/bin/gunicorn  --pid /web/shaantispambot/shaantispambot.pid  --workers 1  --bind unix:/web/shaantispambot/shaantispambot.socket --worker-class aiohttp.GunicornUVLoopWebWorker -m 007  main:app
 
 # От имени shaantispambot
 sudo su - shaantispambot
-cd /web/shaantispambot/shaantispambot && export PROD=true && /web/shaantispambot/shaantispambot_env/bin/gunicorn  --pid /web/shaantispambot/shaantispambot.pid  --workers 1  --bind unix:/web/shaantispambot/shaantispambot.socket --worker-class aiohttp.GunicornUVLoopWebWorker -m 007  main:app
+cd /web/shaantispambot/shaantispambot/src/shaantispambot && export PROD=true && /web/shaantispambot/shaantispambot_env/bin/gunicorn  --pid /web/shaantispambot/shaantispambot.pid  --workers 1  --bind unix:/web/shaantispambot/shaantispambot.socket --worker-class aiohttp.GunicornUVLoopWebWorker -m 007  main:app
 
 
 
 # Настраиваем nginx (здесь настройки СТРОГО отдельного домена или поддомена). Если хочется держать в папке, то настраивать nginx нужно по-другому
 echo '
     server {
-        listen [::]:443 ssl; # managed by Certbot
-        listen 443 ssl; # managed by Certbot
-        http2 on;
+        listen 443 ssl http2;
         server_name shaantispambot.shashkovs.ru; # managed by Certbot
 
         ssl_certificate /etc/letsencrypt/live/shaantispambot.shashkovs.ru/fullchain.pem; # managed by Certbot
