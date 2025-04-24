@@ -234,8 +234,8 @@ async def group_message_handler(message: types.Message, bot: Bot):
 
         try:
             # Баним пользователя
-            # await bot.ban_chat_member(chat_id=chat.id,
-            #                           user_id=user.id)  # revoke_messages=True - можно добавить для удаления всех сообщений
+            await bot.ban_chat_member(chat_id=chat.id,
+                                      user_id=user.id)  # revoke_messages=True - можно добавить для удаления всех сообщений
             logger.info(f"Banned user {user.id} in chat {chat.id}. Reason: {', '.join(reasons)}")
             # Удаляем исходное сообщение после успешного бана
             try:
