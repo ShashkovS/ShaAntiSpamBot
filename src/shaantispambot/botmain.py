@@ -26,10 +26,13 @@ SOME_TYPICAL_SPAM = re.compile(
     r'|ищешь способ заработать'
     r'|пассивный.*заработок.*день'
     r'|срочно.*ищу.*человек'
+    r'|(?:пассивн|дополнит|требу.т).*(?:заработ|доход)'
+    r'|(?:заработ|доход|прибыл|оплата).*(руб|\$|доллар|евро).*(ден|недел|месяц)'
+    r'|удаленка.*\bл.?с\b'
     ,
     flags=re.IGNORECASE | re.UNICODE  # Добавлен флаг UNICODE для лучшей работы с кириллицей
 )
-BOT_LINK_PATTERN = re.compile(r"(?:t\.me/|\B@)(\w+(?:_bot|bot))\b", re.IGNORECASE | re.UNICODE)
+BOT_LINK_PATTERN = re.compile(r"(?:t\.me/|\B@)(\w+(?:_bot|bot))\b", re.IGNORECASE | re.UNICODE | re.DOTALL)
 
 
 @router.message(Command("start"))
